@@ -8,9 +8,9 @@ class AddressMapper extends Mapper<Address> {
       id: map['id'] as String,
       line: map['line'] as String,
       city: map['city'] as String,
-      region: map['region'] as String?,
+      region: map['region'] as String,
       country: map['country'] as String,
-      zip: map['zip'] as String?,
+      zip: map['zip'] as String,
     );
   }
 

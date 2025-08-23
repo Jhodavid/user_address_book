@@ -45,16 +45,6 @@ class HiveUserAdapter implements UserGateway {
   }
 
   @override
-  Future<Result<User>> getUserById(String id) async {
-    final (e, raw) = await _userLocalDS.getUser(id);
-
-    if (e != null) return (_wrap(e), User.empty());
-    if (raw == null) return (_notFound(id), User.empty());
-
-    return (null, userMapper.fromMap(raw));
-  }
-
-  @override
   Future<Result<List<User>>> getListUsers() async {
     final (e, listRaw) = await _userLocalDS.getAll();
 
@@ -74,38 +64,6 @@ class HiveUserAdapter implements UserGateway {
 
     final (deleteError, _) = await _userLocalDS.deleteUser(id);
     if (deleteError != null) return (_wrap(deleteError), null);
-
-    return (null, null);
-  }
-
-  @override
-  Future<Result<void>> addAddress(String userId, Address address) async {
-    final (error, raw) = await _userLocalDS.getUser(userId);
-
-    if (error != null) return (_wrap(error), null);
-    if (raw == null) return (_notFound(userId), null);
-
-    final userData = userMapper.fromMap(raw);
-    userData.addresses.add(address);
-
-    final (putError, _) = await _userLocalDS.putUser(userId, userMapper.toMap(userData));
-    if (putError != null) return (_wrap(putError), null);
-
-    return (null, null);
-  }
-
-  @override
-  Future<Result<void>> deleteAddress(String userId, String addressId) async {
-    final (error, raw) = await _userLocalDS.getUser(userId);
-
-    if (error != null) return (_wrap(error), null);
-    if (raw == null) return (_notFound(userId), null);
-
-    final userData = userMapper.fromMap(raw);
-    userData.addresses.removeWhere((address) => address.id == addressId);
-
-    final (putError, _) = await _userLocalDS.putUser(userId, userMapper.toMap(userData));
-    if (putError != null) return (_wrap(putError), null);
 
     return (null, null);
   }

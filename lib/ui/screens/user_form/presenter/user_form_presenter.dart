@@ -40,6 +40,17 @@ class UserFormPresenter extends _$UserFormPresenter {
     _birthDateErrorMessage = birthDateErrorMessage;
   }
 
+  void loadUserData(User user) {
+    state = state.copyWith(
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      birthDate: user.birthDate,
+      addresses: user.addresses,
+      isUpdating: true,
+    );
+  }
+
   void onFirstNameChanged(String value) => state = state.copyWith(
     firstName: value, firstNameError: value.trim().isEmpty ? _firstNameErrorMessage : null);
 
@@ -49,21 +60,50 @@ class UserFormPresenter extends _$UserFormPresenter {
   void onSelectBirthDate(DateTime? value) => state = state.copyWith(
     birthDate: value, birthDateError: value == null ? _birthDateErrorMessage : null);
 
-  void onAddAddress(Address address) => state = state.copyWith(addresses: [...state.addresses, address]);
+  void onCreateAddress(Address address) => state = state.copyWith(addresses: [...state.addresses, address]);
 
   void onRemoveAddress(Address address) => state = state.copyWith(
     addresses: state.addresses.where((a) => a.id != address.id).toList()
   );
 
-  Future<void> createUser() async {
+  void onSubmit() {
+    if(state.isUpdating) {
+      _updateUser();
+    } else {
+      _createUser();
+    }
+  }
+
+  Future<void> _createUser() async {
     if(!_validate()) return;
+    _interface.showLoading();
 
     final user = _getUser();
     final (error, _) = await _appScope.createUser(user);
+    _interface.hideLoading();
 
     if(error != null) {
-      print(error);
+      _interface.showError();
+      return;
     }
+
+    _interface.onContinue();
+  }
+
+  Future<void> _updateUser() async {
+    if(!_validate()) return;
+    _interface.showLoading();
+
+    final user = _getUser();
+    final (error, _) = await _appScope.updateUser(user);
+    _interface.hideLoading();
+
+    if(error != null) {
+      _interface.showError();
+      return;
+    }
+
+    _interface.onContinue();
   }
 
   bool _validate() {
@@ -82,7 +122,7 @@ class UserFormPresenter extends _$UserFormPresenter {
 
   User _getUser() {
     return User(
-      id: state.id.isNotEmpty ? state.id : const Uuid().v4(),
+      id: state.isUpdating ? state.id : const Uuid().v4(),
       firstName: state.firstName.trim(),
       lastName: state.lastName.trim(),
       birthDate: state.birthDate!,

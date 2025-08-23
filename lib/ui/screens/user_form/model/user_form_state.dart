@@ -11,6 +11,7 @@ class UserFormState {
   final String? firstNameError;
   final String? lastNameError;
   final String? birthDateError;
+  final bool isUpdating;
 
   UserFormState({
     this.id = '',
@@ -21,11 +22,13 @@ class UserFormState {
     this.firstNameError,
     this.lastNameError,
     this.birthDateError,
+    this.isUpdating = false,
   });
 
   factory UserFormState.initial() => UserFormState();
 
   UserFormState copyWith({
+    String? id,
     String? firstName,
     String? lastName,
     DateTime? birthDate,
@@ -33,9 +36,10 @@ class UserFormState {
     String? firstNameError,
     String? lastNameError,
     String? birthDateError,
+    bool? isUpdating,
   }) {
     return UserFormState(
-      id: id,
+      id: id ?? this.id,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       birthDate: birthDate ?? this.birthDate,
@@ -43,6 +47,7 @@ class UserFormState {
       firstNameError: firstNameError,
       lastNameError: lastNameError,
       birthDateError: birthDateError,
+      isUpdating: isUpdating ?? this.isUpdating,
     );
   }
 }

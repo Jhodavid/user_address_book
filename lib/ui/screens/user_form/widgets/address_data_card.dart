@@ -1,20 +1,14 @@
+
 import 'package:flutter/material.dart';
-import 'package:user_address/ui/common/helpers/ui_helpers.dart';
+import 'package:user_address/domain/domain.dart';
 
 import '../../../../config/locale/app_localizations.dart';
-import '../../../../domain/domain.dart';
 
-class UserDataCard extends StatelessWidget {
-  final User user;
+class AddressDataCard extends StatelessWidget {
+  final Address address;
   final VoidCallback onDelete;
-  final VoidCallback onViewDetails;
 
-  const UserDataCard(
-    this.user, {
-    required this.onDelete,
-    required this.onViewDetails,
-    super.key,
-  });
+  const AddressDataCard(this.address, {super.key, required this.onDelete});
 
   @override
   Widget build(BuildContext context) {
@@ -32,55 +26,60 @@ class UserDataCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: CircleAvatar(
                 backgroundColor: Color(0xffdce6fa),
-                child: Icon(Icons.person, color: Color(0xff5f72ea)),
+                child: Icon(Icons.home_rounded, color: Color(0xff5f72ea)),
               ),
             ),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${user.firstName} ${user.lastName}',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 5),
-                    child: RichText(
-                      text: TextSpan(
-                        text: locale.list_birthdate,
+                  RichText(
+                    text: TextSpan(
+                      text: locale.address_card_title,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.normal,
+                      ),
+                      children: [
+                        TextSpan(
+                          text: '${address.line}, ${address.zip.isNotEmpty ? ' (${address.zip})' : ''}',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ]
+                    ),
+                  ),
+
+                  RichText(
+                    text: TextSpan(
+                        text: locale.address_card_location_title,
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.normal,
                         ),
                         children: [
                           TextSpan(
-                            text: UiHelpers.getBirthDateText(user.birthDate),
+                            text: '${address.city}, ${address.country}',
                             style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                         ]
-                      ),
                     ),
                   ),
                 ],
               ),
             ),
             SizedBox(
-              width: 100,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.close, color: Colors.red),
-                    onPressed: onDelete,
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.read_more_outlined, color: Color(0xff5f72ea)),
-                    onPressed: onViewDetails,
-                  ),
-                ],
+              width: 50,
+              child: IconButton(
+                icon: Icon(Icons.close, color: Colors.red),
+                onPressed: onDelete,
               ),
-            )
+            ),
           ],
         ),
       ),

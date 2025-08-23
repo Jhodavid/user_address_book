@@ -101,6 +101,12 @@ abstract class AppLocalizations {
   /// **'User Address Book'**
   String get app_name;
 
+  /// No description provided for @loading.
+  ///
+  /// In es, this message translates to:
+  /// **'Cargando...'**
+  String get loading;
+
   /// No description provided for @list_title.
   ///
   /// In es, this message translates to:
@@ -134,7 +140,7 @@ abstract class AppLocalizations {
   /// No description provided for @list_birthdate.
   ///
   /// In es, this message translates to:
-  /// **'Fecha de nacimiento:'**
+  /// **'Fecha de nacimiento: '**
   String get list_birthdate;
 
   /// No description provided for @address_title.
@@ -196,6 +202,150 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'El país es obligatorio.'**
   String get address_country_error;
+
+  /// No description provided for @address_card_title.
+  ///
+  /// In es, this message translates to:
+  /// **'Dirección: '**
+  String get address_card_title;
+
+  /// No description provided for @address_card_location_title.
+  ///
+  /// In es, this message translates to:
+  /// **'Ubicación: '**
+  String get address_card_location_title;
+
+  /// No description provided for @birthdate_picker_cancel.
+  ///
+  /// In es, this message translates to:
+  /// **'Cancelar'**
+  String get birthdate_picker_cancel;
+
+  /// No description provided for @birthdate_picker_done.
+  ///
+  /// In es, this message translates to:
+  /// **'Confirmar'**
+  String get birthdate_picker_done;
+
+  /// No description provided for @form_create_user_tittle.
+  ///
+  /// In es, this message translates to:
+  /// **'Crear usuario'**
+  String get form_create_user_tittle;
+
+  /// No description provided for @form_update_user_title.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar usuario'**
+  String get form_update_user_title;
+
+  /// No description provided for @form_first_name_label.
+  ///
+  /// In es, this message translates to:
+  /// **'Nombre'**
+  String get form_first_name_label;
+
+  /// No description provided for @form_first_name_helper.
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe tu nombre'**
+  String get form_first_name_helper;
+
+  /// No description provided for @form_last_name_label.
+  ///
+  /// In es, this message translates to:
+  /// **'Apellido'**
+  String get form_last_name_label;
+
+  /// No description provided for @form_last_name_helper.
+  ///
+  /// In es, this message translates to:
+  /// **'Escribe tu apellido'**
+  String get form_last_name_helper;
+
+  /// No description provided for @form_birthdate_label.
+  ///
+  /// In es, this message translates to:
+  /// **'Fecha de nacimiento'**
+  String get form_birthdate_label;
+
+  /// No description provided for @form_birthdate_helper.
+  ///
+  /// In es, this message translates to:
+  /// **'Selecciona tu fecha de nacimiento'**
+  String get form_birthdate_helper;
+
+  /// No description provided for @form_select_a_date.
+  ///
+  /// In es, this message translates to:
+  /// **'Selecciona una fecha'**
+  String get form_select_a_date;
+
+  /// No description provided for @form_addresses_title.
+  ///
+  /// In es, this message translates to:
+  /// **'Direcciones'**
+  String get form_addresses_title;
+
+  /// No description provided for @form_add_address_button.
+  ///
+  /// In es, this message translates to:
+  /// **'Agregar dirección'**
+  String get form_add_address_button;
+
+  /// No description provided for @form_no_addresses.
+  ///
+  /// In es, this message translates to:
+  /// **'No hay direcciones creadas.\nPresiona el botón \"Agregar dirección\" para agregar una nueva.'**
+  String get form_no_addresses;
+
+  /// No description provided for @form_create_user_button.
+  ///
+  /// In es, this message translates to:
+  /// **'Crear usuario'**
+  String get form_create_user_button;
+
+  /// No description provided for @form_update_user_button.
+  ///
+  /// In es, this message translates to:
+  /// **'Actualizar usuario'**
+  String get form_update_user_button;
+
+  /// No description provided for @form_first_name_error_message.
+  ///
+  /// In es, this message translates to:
+  /// **'Por favor ingresa un nombre válido.'**
+  String get form_first_name_error_message;
+
+  /// No description provided for @form_last_name_error_message.
+  ///
+  /// In es, this message translates to:
+  /// **'Por favor ingresa un apellido válido.'**
+  String get form_last_name_error_message;
+
+  /// No description provided for @form_birth_date_error_message.
+  ///
+  /// In es, this message translates to:
+  /// **'Por favor selecciona una fecha de nacimiento válida.'**
+  String get form_birth_date_error_message;
+
+  /// No description provided for @form_operation_error_title.
+  ///
+  /// In es, this message translates to:
+  /// **'Error en la operación 😞'**
+  String get form_operation_error_title;
+
+  /// No description provided for @form_operation_error_message.
+  ///
+  /// In es, this message translates to:
+  /// **'Ha ocurrido un error inesperado, por favor intenta nuevamente.'**
+  String get form_operation_error_message;
+
+  /// No description provided for @form_operation_error_button.
+  ///
+  /// In es, this message translates to:
+  /// **'Entendido'**
+  String get form_operation_error_button;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

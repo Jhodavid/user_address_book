@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import '../../domain/domain.dart';
 import '../../ui/ui.dart';
 
-GoRouter buildRouter() => GoRouter(
+final appRouter = GoRouter(
   initialLocation: UserList.route,
   routes: [
     GoRoute(path: UserForm.route, builder: (_, GoRouterState state) {

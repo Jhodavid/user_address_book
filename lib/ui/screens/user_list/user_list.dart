@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:user_address/config/providers/providers.dart';
-import 'package:user_address/ui/common/constants/ui_constants.dart';
+import 'package:user_address/ui/common/widgets/full_screen_loader.dart';
 import 'package:user_address/ui/screens/user_form/user_form.dart';
 
 import '../../../config/locale/app_localizations.dart';
+import '../../common/widgets/add_text_button.dart';
 import 'widgets/user_data_card.dart';
 
 class UserList extends ConsumerWidget {
@@ -17,6 +18,13 @@ class UserList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final locale = AppLocalizations.of(context);
     final userList = ref.watch(appScopeProvider).users;
+    final appScope = ref.read(appScopeProvider.notifier);
+
+    void deleteUser(String id) async {
+      FullScreenLoader.show(context);
+      await appScope.deleteUser(id);
+      FullScreenLoader.hide();
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -66,27 +74,10 @@ class UserList extends ConsumerWidget {
                       ),
                     ),
                   ),
-                  TextButton( /// todo: widget
-                    style: ButtonStyle(
-                      backgroundColor: WidgetStatePropertyAll<Color>(
-                        UiConstants.onPrimaryColor)
-                    ),
-                    onPressed: () => context.push(UserForm.route),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.person_add,
-                          color: UiConstants.primaryColor,
-                        ),
-                        SizedBox(width: 6),
-                        Text(
-                          locale.list_create_button,
-                          style: TextStyle(
-                            color: UiConstants.primaryColor
-                          ),
-                        ),
-                      ],
-                    )
+                  AddTextButton(
+                    icon: Icons.person_add,
+                    label: locale.list_create_button,
+                    onPressed: () => context.push(UserForm.route)
                   ),
                 ],
               ),
@@ -105,13 +96,16 @@ class UserList extends ConsumerWidget {
                 child: ListView.builder(
                   itemCount: userList.length,
                   itemBuilder: (_, index) {
+                    final user = userList[index];
+
                     return UserDataCard(
-                      userList[index],
-                      onDelete: () {
-                        /// todo
-                      },
+                      user,
+                      onDelete: () => deleteUser(user.id),
                       onViewDetails: () {
-                        /// todo
+                        context.push(
+                          UserForm.route,
+                          extra: user
+                        );
                       },
                     );
                   },
