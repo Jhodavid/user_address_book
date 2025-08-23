@@ -1,0 +1,20 @@
+{
+  "@@locale": "es",
+  "app_name": "User Address Book",
+  "list_title": "Bienvenido a User Address Book!",
+  "list_description": "Maneja tus usuarios y sus direcciones, revisa tu lista de usuarios o agrega uno nuevo.",
+  "list_list_title": "Lista de usuarios",
+  "list_create_button": "Crear usuario",
+  "list_empty_list": "No hay usuarios creados.\nPresiona el botón \"Crear usuario\" para crear uno nuevo.",
+  "list_birthdate": "Fecha de nacimiento:",
+  "address_title": "Nueva dirección",
+  "address_line_label": "Dirección",
+  "address_city_label": "Ciudad",
+  "address_region_label": "Estado/Región (Opcional)",
+  "address_country_label": "País",
+  "address_zip_label": "ZIP/Código postal (Optional)",
+  "address_create_button": "Crear dirección",
+  "address_line_error": "La direccción es obligatoria.",
+  "address_city_error": "La ciudad es obligatoria.",
+  "address_country_error": "El país es obligatorio."
+}

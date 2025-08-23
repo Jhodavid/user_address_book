@@ -1,0 +1,144 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:user_address/domain/domain.dart';
+import 'package:user_address/ui/common/constants/ui_constants.dart';
+
+import '../../../../../config/locale/app_localizations.dart';
+import 'interface/address_form_interface.dart';
+import 'presenter/address_form_presenter.dart';
+
+class AddressForm extends ConsumerStatefulWidget {
+  final ValueChanged<Address> onSave;
+
+  const AddressForm({super.key, required this.onSave});
+
+  @override
+  ConsumerState createState() => _AddressFormState();
+}
+
+class _AddressFormState extends ConsumerState<AddressForm> implements AddressFormInterface {
+
+  @override
+  Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context);
+    final bottom = MediaQuery.of(context).viewInsets.bottom;
+
+    final presenter = ref.read(addressFormPresenterProvider.notifier);
+    final state = ref.watch(addressFormPresenterProvider);
+
+    return SafeArea(
+      child: Padding(
+        padding: EdgeInsets.only(
+            left: 16, right: 16, bottom: 16 + bottom),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(locale.address_title, style: Theme.of(context).textTheme.titleMedium),
+            const SizedBox(height: 12),
+            TextField(
+              textCapitalization: TextCapitalization.words,
+              onChanged: presenter.onLineChanged,
+              decoration: _dec(locale.address_line_label,  error: state.lineError)
+            ),
+
+            const SizedBox(height: 8),
+
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    textCapitalization: TextCapitalization.words,
+                    onChanged: presenter.onCityChanged,
+                    decoration: _dec(locale.address_city_label, error: state.cityError)
+                  )
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      bottom: state.cityError != null ? 20 : 0
+                    ),
+                    child: TextField(
+                      textCapitalization: TextCapitalization.words,
+                      onChanged: presenter.onRegionChanged,
+                      decoration: _dec(locale.address_region_label)
+                    ),
+                  ),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 8),
+
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    textCapitalization: TextCapitalization.words,
+                    onChanged: presenter.onCountryChanged,
+                    decoration: _dec(locale.address_country_label, error: state.countryError)
+                  )
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.only(
+                      bottom: state.cityError != null ? 20 : 0
+                    ),
+                    child: TextField(
+                      textCapitalization: TextCapitalization.words,
+                      onChanged: presenter.onZipChanged,
+                      decoration: _dec(locale.address_zip_label)
+                    ),
+                  )
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 8),
+
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll<Color>(UiConstants.primaryColor),
+                ),
+                onPressed: presenter.createAddress,
+                child: Text(locale.address_create_button),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final locale = AppLocalizations.of(context);
+      final presenter = ref.read(addressFormPresenterProvider.notifier);
+
+      presenter.interface = this;
+      presenter.setErrorMessages(
+        lineErrorMessage: locale.address_line_error,
+        cityErrorMessage: locale.address_city_error,
+        countryErrorMessage: locale.address_country_error,
+      );
+    });
+  }
+
+  @override
+  void onSave(Address address) => widget.onSave(address);
+}
+
+InputDecoration _dec(String label, {String? error}) => InputDecoration(
+  labelText: label,
+  labelStyle: TextStyle(color: Colors.black),
+  filled: true,
+  fillColor: UiConstants.onPrimaryColor,
+  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: BorderSide.none),
+  contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
+  errorText: error,
+);
