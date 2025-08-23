@@ -12,18 +12,24 @@ class AppScope extends ChangeNotifier {
   List<User> _users = [];
   List<User> get users => _users;
 
+  ErrorItem? _usersGetError;
+  get usersGetError => _usersGetError;
+
   void _setUsers(List<User> list) {
     _users = list;
     notifyListeners();
   }
 
-  Future<Result<void>> _refreshUsers() async {
+  Future<void> _refreshUsers() async {
     final (error, data) = await _userUseCases.listUsers();
-    if (error != null) return (error, null);
+    if (error != null) {
+      _usersGetError = error;
+      notifyListeners();
+      return;
+    }
 
+    _usersGetError = null;
     _setUsers(data);
-
-    return (null, null);
   }
 
   Future<Result<void>> createUser(User user) async {

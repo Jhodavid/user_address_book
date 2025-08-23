@@ -16,6 +16,12 @@ import 'widgets/address_form/address_form.dart';
 import 'widgets/birthdate_picker.dart';
 
 class UserForm extends ConsumerStatefulWidget {
+  static final firstNameFieldKey = Key('user-form-first_name_field');
+  static final lastNameFieldKey = Key('user-form-last_name_field');
+  static final birthDateFieldKey = Key('user-form-birth_date_field');
+  static final addAddressButtonKey = Key('user-form-add_address_button');
+  static final submitButtonKey = Key('user-form-submit_button');
+
   static final route = '/form';
 
   final User? user;
@@ -78,7 +84,7 @@ class _UserFormState extends ConsumerState<UserForm> implements UserFormInterfac
         appBar: AppBar(
           title: Text(
             state.isUpdating
-              ? locale.form_update_user_title : locale.form_create_user_tittle,
+              ? locale.form_update_user_title : locale.form_create_user_title,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 24,
@@ -101,6 +107,7 @@ class _UserFormState extends ConsumerState<UserForm> implements UserFormInterfac
                       Text(locale.form_first_name_label, style: titleStyle),
                       const SizedBox(height: 8),
                       TextFormField(
+                        key: UserForm.firstNameFieldKey,
                         initialValue: widget.user?.firstName,
                         textCapitalization: TextCapitalization.words,
                         decoration: _dec(
@@ -114,6 +121,7 @@ class _UserFormState extends ConsumerState<UserForm> implements UserFormInterfac
                       Text(locale.form_last_name_label, style: titleStyle),
                       const SizedBox(height: 8),
                       TextFormField(
+                        key: UserForm.lastNameFieldKey,
                         initialValue: widget.user?.lastName,
                         textCapitalization: TextCapitalization.words,
                         decoration: _dec(locale.form_last_name_helper ,error: state.lastNameError),
@@ -124,6 +132,7 @@ class _UserFormState extends ConsumerState<UserForm> implements UserFormInterfac
                       Text(locale.form_birthdate_label, style: titleStyle),
                       const SizedBox(height: 8),
                       GestureDetector(
+                        key: UserForm.birthDateFieldKey,
                         onTap: openDatePicker,
                         child: InputDecorator(
                           decoration: _dec(locale.form_birthdate_helper, error: state.birthDateError),
@@ -142,6 +151,7 @@ class _UserFormState extends ConsumerState<UserForm> implements UserFormInterfac
                         children: [
                           Text(locale.form_addresses_title, style: titleStyle),
                           AddTextButton(
+                            key: UserForm.addAddressButtonKey,
                             icon: Icons.add,
                             label: locale.form_add_address_button,
                             onPressed: openAddressSheet
@@ -158,7 +168,7 @@ class _UserFormState extends ConsumerState<UserForm> implements UserFormInterfac
                       ),
 
                       SizedBox(
-                        height: constraints.maxHeight * 0.28,
+                        height: constraints.maxHeight * 0.22,
                         child: ListView.builder(
                           itemCount: state.addresses.length,
                           itemBuilder: (context, index) {
@@ -175,6 +185,7 @@ class _UserFormState extends ConsumerState<UserForm> implements UserFormInterfac
                         padding: EdgeInsets.only(top: 10),
                         width: double.infinity,
                         child: FilledButton(
+                          key: UserForm.submitButtonKey,
                           style: FilledButton.styleFrom(
                             backgroundColor: UiConstants.primaryColor,
                             foregroundColor: Colors.white,
@@ -238,7 +249,7 @@ class _UserFormState extends ConsumerState<UserForm> implements UserFormInterfac
   );
 
   @override
-  void onContinue() => context.pop();
+  void onContinue() => Navigator.of(context).pop();
 }
 
 InputDecoration _dec(String helperText, {String? error}) => InputDecoration(

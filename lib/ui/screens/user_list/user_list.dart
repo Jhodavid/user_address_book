@@ -10,6 +10,9 @@ import '../../common/widgets/add_text_button.dart';
 import 'widgets/user_data_card.dart';
 
 class UserList extends ConsumerWidget {
+  static final errorDataMessageKey = Key('error-data-message-key');
+  static final emptyDataMessageKey = Key('empty-data-message-key');
+
   static final route = '/list';
 
   const UserList({super.key});
@@ -18,6 +21,7 @@ class UserList extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final locale = AppLocalizations.of(context);
     final userList = ref.watch(appScopeProvider).users;
+    final error = ref.watch(appScopeProvider).usersGetError;
     final appScope = ref.read(appScopeProvider.notifier);
 
     void deleteUser(String id) async {
@@ -84,7 +88,17 @@ class UserList extends ConsumerWidget {
 
               Divider(color: Colors.grey, height: 20, thickness: 2,),
 
-              if(userList.isEmpty) Center(
+              if(error != null) Center(
+                key: errorDataMessageKey,
+                child: Text(
+                  locale.list_error_fetching_users,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16, color: Colors.red),
+                ),
+              ),
+
+              if(error == null && userList.isEmpty) Center(
+                key: emptyDataMessageKey,
                 child: Text(
                   locale.list_empty_list,
                   textAlign: TextAlign.center,

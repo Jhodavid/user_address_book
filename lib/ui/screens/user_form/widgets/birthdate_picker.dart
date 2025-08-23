@@ -5,6 +5,8 @@ import 'package:user_address/config/locale/app_localizations.dart';
 import '../../../common/constants/ui_constants.dart';
 
 class BirthdatePicker extends StatelessWidget {
+  static final cancelButtonKey = Key('birthdate-picker-cancel_button');
+  static final doneButtonKey = Key('birthdate-picker-done_button');
 
   final DateTime? initialDate;
   final ValueChanged<DateTime> onSelectedBirthdate;
@@ -29,11 +31,13 @@ class BirthdatePicker extends StatelessWidget {
               child: Row(
                 children: [
                   TextButton(
+                    key: cancelButtonKey,
                     onPressed: () => Navigator.pop(context),
                     child: Text(locale.birthdate_picker_cancel),
                   ),
                   const Spacer(),
                   FilledButton(
+                    key: doneButtonKey,
                     style: FilledButton.styleFrom(backgroundColor: UiConstants.primaryColor),
                     onPressed: () => onSelectedBirthdate(currentSelected),
                     child: Text(locale.birthdate_picker_done),

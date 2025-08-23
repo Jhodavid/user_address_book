@@ -5,6 +5,8 @@ import 'package:user_address/domain/domain.dart';
 import '../../../../config/locale/app_localizations.dart';
 
 class AddressDataCard extends StatelessWidget {
+  static final deleteAddressButtonKey = Key('address-data-card-delete_address_button');
+
   final Address address;
   final VoidCallback onDelete;
 
@@ -76,6 +78,7 @@ class AddressDataCard extends StatelessWidget {
             SizedBox(
               width: 50,
               child: IconButton(
+                key: deleteAddressButtonKey,
                 icon: Icon(Icons.close, color: Colors.red),
                 onPressed: onDelete,
               ),

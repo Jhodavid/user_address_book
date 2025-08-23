@@ -33,6 +33,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get list_birthdate => 'Date of birth: ';
 
   @override
+  String get list_error_fetching_users => 'Error fetching users. Please try later.';
+
+  @override
   String get address_title => 'New Address';
 
   @override
@@ -75,7 +78,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get birthdate_picker_done => 'Done';
 
   @override
-  String get form_create_user_tittle => 'Crear usuario';
+  String get form_create_user_title => 'Create user';
 
   @override
   String get form_update_user_title => 'Update user';

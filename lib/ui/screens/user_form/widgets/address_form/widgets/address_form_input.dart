@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import '../../../../../common/constants/ui_constants.dart';
 
 class AddressFormInput extends StatelessWidget {
+
+  final Key fieldKey;
   final TextCapitalization textCapitalization;
   final TextInputType keyboardType;
   final String label;
@@ -12,6 +14,7 @@ class AddressFormInput extends StatelessWidget {
 
   const AddressFormInput({
     super.key,
+    required this.fieldKey,
     this.textCapitalization = TextCapitalization.words,
     this.keyboardType = TextInputType.text,
     required this.label,
@@ -22,6 +25,7 @@ class AddressFormInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextField(
+      key: fieldKey,
       keyboardType: keyboardType,
       textCapitalization: textCapitalization,
       decoration: _dec(label , error: errorText),

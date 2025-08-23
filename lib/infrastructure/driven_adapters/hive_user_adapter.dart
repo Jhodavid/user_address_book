@@ -1,6 +1,5 @@
 import 'package:user_address/infrastructure/constants/infra_constants.dart';
 import 'package:user_address/infrastructure/mappers/user_mapper.dart';
-import 'package:uuid/uuid.dart';
 
 import '../../domain/domain.dart';
 import '../datasources/user_local_ds.dart';
@@ -13,17 +12,13 @@ class HiveUserAdapter implements UserGateway {
   ErrorItem _wrap(Object e) => ErrorItem(InfraConstants.hiveAdapterError, e.toString());
   ErrorItem _notFound([String? id]) => ErrorItem(InfraConstants.hiveAdapterNotFound, 'User not found${id != null ? " ($id)" : ""}');
 
-  final _uuid = const Uuid();
   final userMapper = UserMapper();
 
   @override
   Future<Result<void>> createUser(User user) async {
-    final userData = user.copyWith(
-      id: user.id.isEmpty ? _uuid.v4() : user.id,
-    );
-    final userMap = userMapper.toMap(userData);
+    final userMap = userMapper.toMap(user);
 
-    final (error, _) = await _userLocalDS.putUser(userData.id, userMap);
+    final (error, _) = await _userLocalDS.putUser(user.id, userMap);
     if (error != null) return (_wrap(error), null);
 
     return (null, null);

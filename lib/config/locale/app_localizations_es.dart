@@ -33,6 +33,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get list_birthdate => 'Fecha de nacimiento: ';
 
   @override
+  String get list_error_fetching_users => 'Error al obtener los usuarios. Por favor intenta más tarde.';
+
+  @override
   String get address_title => 'Nueva dirección';
 
   @override
@@ -75,7 +78,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get birthdate_picker_done => 'Confirmar';
 
   @override
-  String get form_create_user_tittle => 'Crear usuario';
+  String get form_create_user_title => 'Crear usuario';
 
   @override
   String get form_update_user_title => 'Actualizar usuario';

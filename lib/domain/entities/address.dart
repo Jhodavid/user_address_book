@@ -14,19 +14,4 @@ class Address {
     required this.country,
     this.zip = '',
   });
-
-  Address copyWith({
-    String? line,
-    String? city,
-    String? region,
-    String? country,
-    String? zip,
-  }) => Address(
-    id: id,
-    line: line ?? this.line,
-    city: city ?? this.city,
-    region: region ?? this.region,
-    country: country ?? this.country,
-    zip: zip ?? this.zip,
-  );
 }

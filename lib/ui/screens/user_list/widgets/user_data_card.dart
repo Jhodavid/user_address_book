@@ -5,6 +5,9 @@ import '../../../../config/locale/app_localizations.dart';
 import '../../../../domain/domain.dart';
 
 class UserDataCard extends StatelessWidget {
+  static final deleteButtonKey = Key('user-data-card-delete_button');
+  static final viewDetailsButtonKey = Key('user-data-card-view_details_button');
+
   final User user;
   final VoidCallback onDelete;
   final VoidCallback onViewDetails;
@@ -71,10 +74,12 @@ class UserDataCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   IconButton(
+                    key: UserDataCard.deleteButtonKey,
                     icon: Icon(Icons.close, color: Colors.red),
                     onPressed: onDelete,
                   ),
                   IconButton(
+                    key: UserDataCard.viewDetailsButtonKey,
                     icon: Icon(Icons.read_more_outlined, color: Color(0xff5f72ea)),
                     onPressed: onViewDetails,
                   ),

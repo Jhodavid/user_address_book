@@ -143,6 +143,12 @@ abstract class AppLocalizations {
   /// **'Fecha de nacimiento: '**
   String get list_birthdate;
 
+  /// No description provided for @list_error_fetching_users.
+  ///
+  /// In es, this message translates to:
+  /// **'Error al obtener los usuarios. Por favor intenta más tarde.'**
+  String get list_error_fetching_users;
+
   /// No description provided for @address_title.
   ///
   /// In es, this message translates to:
@@ -227,11 +233,11 @@ abstract class AppLocalizations {
   /// **'Confirmar'**
   String get birthdate_picker_done;
 
-  /// No description provided for @form_create_user_tittle.
+  /// No description provided for @form_create_user_title.
   ///
   /// In es, this message translates to:
   /// **'Crear usuario'**
-  String get form_create_user_tittle;
+  String get form_create_user_title;
 
   /// No description provided for @form_update_user_title.
   ///

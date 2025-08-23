@@ -8,6 +8,7 @@
   "list_create_button": "Create user",
   "list_empty_list": "There are no users created.\nClick the \"Create user\" button to create a new one.",
   "list_birthdate": "Date of birth: ",
+  "list_error_fetching_users": "Error fetching users. Please try later.",
   "address_title": "New Address",
   "address_line_label": "Address line",
   "address_city_label": "City",

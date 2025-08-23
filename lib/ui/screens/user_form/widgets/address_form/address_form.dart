@@ -9,6 +9,13 @@ import 'interface/address_form_interface.dart';
 import 'presenter/address_form_presenter.dart';
 
 class AddressForm extends ConsumerStatefulWidget {
+  static final lineFieldKey = Key('address-form-line_field');
+  static final cityFieldKey = Key('address-form-city_field');
+  static final regionFieldKey = Key('address-form-region_field');
+  static final countryFieldKey = Key('address-form-country_field');
+  static final zipFieldKey = Key('address-form-zip_field');
+  static final submitButtonKey = Key('address-form-create_button');
+
   final ValueChanged<Address> onSave;
 
   const AddressForm({super.key, required this.onSave});
@@ -37,6 +44,7 @@ class _AddressFormState extends ConsumerState<AddressForm> implements AddressFor
 
             const SizedBox(height: 12),
             AddressFormInput(
+              fieldKey: AddressForm.lineFieldKey,
               label: locale.address_line_label,
               onChanged: presenter.onLineChanged,
               errorText: state.lineError
@@ -48,6 +56,7 @@ class _AddressFormState extends ConsumerState<AddressForm> implements AddressFor
               children: [
                 Expanded(
                   child: AddressFormInput(
+                    fieldKey: AddressForm.cityFieldKey,
                     label: locale.address_city_label,
                     onChanged: presenter.onCityChanged,
                     errorText: state.cityError
@@ -60,6 +69,7 @@ class _AddressFormState extends ConsumerState<AddressForm> implements AddressFor
                       bottom: state.cityError != null ? 20 : 0
                     ),
                     child: AddressFormInput(
+                      fieldKey: AddressForm.regionFieldKey,
                       label: locale.address_region_label,
                       onChanged: presenter.onRegionChanged,
                     ),
@@ -74,6 +84,7 @@ class _AddressFormState extends ConsumerState<AddressForm> implements AddressFor
               children: [
                 Expanded(
                   child: AddressFormInput(
+                    fieldKey: AddressForm.countryFieldKey,
                     label: locale.address_country_label,
                     onChanged: presenter.onCountryChanged,
                     errorText: state.countryError
@@ -86,6 +97,7 @@ class _AddressFormState extends ConsumerState<AddressForm> implements AddressFor
                       bottom: state.cityError != null ? 20 : 0
                     ),
                     child: AddressFormInput(
+                      fieldKey: AddressForm.zipFieldKey,
                       label: locale.address_zip_label,
                       onChanged: presenter.onZipChanged,
                       keyboardType: TextInputType.number,
@@ -101,6 +113,7 @@ class _AddressFormState extends ConsumerState<AddressForm> implements AddressFor
             SizedBox(
               width: double.infinity,
               child: FilledButton(
+                key: AddressForm.submitButtonKey,
                 style: ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll<Color>(UiConstants.primaryColor),
                 ),
